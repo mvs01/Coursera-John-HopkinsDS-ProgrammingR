@@ -20,7 +20,7 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ## The below function takes in a matrix from the parent environment and
 ## transposes the rows and columns via the R solve() function.
-cacheSolv <- function(x, ...) {
+cacheSolve <- function(x, ...) {
   m <- x$getmatrix()
   if(!is.null(m)) {
     message("getting cached data")
