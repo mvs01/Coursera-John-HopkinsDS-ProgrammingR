@@ -6,31 +6,29 @@
 
 ## The below function takes as input a matrix and loads the entries into
 ## the global parent environment (lexical scoping)
-
-## Write a short comment describing this function
-
 makeCacheMatrix <- function(x = matrix()) {
-  
-  parentMatrix <-- x
-  
+  m <- NULL
+  set <- function(y) {
+    x <<- y
+    m <<- NULL
+  }
+  get <- function() x
+  setmatrix <- function() m <<- matrix
+  getmatrix <- function() m
+  list(set = setmatrix, get = getmatrix)
 }
 
 ## The below function takes in a matrix from the parent environment and
-## transposes the rows and columns via the R t() function.
-
-cacheSolve <- function(x, ...) {
-  ## Return a matrix that is the inverse of 'x'
-  
-  inverseMatrix <- t(x)
-  
+## transposes the rows and columns via the R solve() function.
+cacheSolv <- function(x, ...) {
+  m <- x$getmatrix()
+  if(!is.null(m)) {
+    message("getting cached data")
+    return(m)
+  }
+  data <- x$get()
+  m <- solve(data, ...)
+  x$setmatrix(m)
+  m
 }
-
-x <- matrix(1:10, 5, 2)
-
-cachedMatrix <- abs(makeCacheMatrix(x))
-cachedMatrix
-
-xInverse <- cacheSolve(cachedMatrix)
-xInverse
-
 
